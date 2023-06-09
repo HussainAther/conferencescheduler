@@ -8,10 +8,6 @@ class Conference:
         """
         Initialize the Conference class with country, start_date, attendee_count, and attendees.  
         """
-        self.name = country
-        self.startDate = start_date
-        self.attendeeCount = attendee_count
-        self.attendees = attendees
 
 class ConferenceScheduler:
     def __init__(self):
@@ -26,11 +22,6 @@ class ConferenceScheduler:
         Retrieve conference data from the API point.
         """
         response = requests.get(self.api_url)
-        if response.status_code == 200:
-            partnercheck = request.json()['partners']
-            print("Request was successful")
-        else:
-            print("Request failed with status code: ", response.status_code)
         for partner in partnercheck:
             self.country_dict[partner['country']] = self.country_dict.get(partner['country'], dict()) 
             for i in range(len(partner['availableDates'])-1):
@@ -38,61 +29,5 @@ class ConferenceScheduler:
                 Put code here to check available dates.
                 """
 
-    def create_schedule(self, data):
-        """
-        Given the data create the list of conferences. 
-        """
-        conferences = []
-        countries = {}
 
-        for partner in data['partners']:
-            country = partner['country']
-            if country not in countries:
-                countries[country] = {
-                    'attendeeCount': 0,
-                    'attendees': [],
-                    'name': country,
-                    'startDate': None
-                }
-            countries[country]['attendeeCount'] += 1
-            countries[country]['attendees'].append(partner['email'])
-
-        for country in countries.values():
-            country['startDate'] = min(partner['availableDates'] for partner in data['partners'] if partner['country'] == country['name'])
-            conferences.append(Conference(
-                country['name'],
-                country['startDate'],
-                country['attendeeCount'],
-                country['attendees']
-            ))
-
-        conferences.sort(key=lambda x: x.attendeeCount, reverse=True)
-        return conferences
-
-    def submit_schedule(self, conferences):
-        """
-        Post the schedule with the given conferences. 
-        """
-        solution = {'Conferences': []}
-
-        for conference in conferences:
-            solution['Conferences'].append({
-                'name': conference.name,
-                'startDate': conference.startDate,
-                'attendeeCount': conference.attendeeCount,
-                'attendees': conference.attendees
-            })
-
-        response = requests.post(self.solution_url, json=solution)
-
-        if response.status_code == 200:
-            print("Solution submitted successfully.")
-        else:
-            print("Failed to submit the solution. Please try again.")
-
-
-# Example usage
 scheduler = ConferenceScheduler()
-data = scheduler.make_api_call()
-schedule = scheduler.create_schedule(data)
-scheduler.submit_schedule(schedule)
