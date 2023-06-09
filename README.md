@@ -1,3 +1,6 @@
+Great! Here's the updated README.md file with the GUI improvements:
+
+```markdown
 # (Optional) API Mock Technical Assessment
 ## Conference Scheduler
 
@@ -19,6 +22,8 @@ The assessment consists of the following files:
 
 2. `unittests.py`: This file contains unit tests for verifying the functionality of the methods and classes in `program.py`. The unit tests cover different scenarios, such as successful API calls, handling API errors, and verifying the correctness of schedule creation and posting.
 
+3. `README.md`: This file provides instructions and information about the assessment.
+
 ## Usage
 
 To use the program, follow these steps:
@@ -29,13 +34,17 @@ To use the program, follow these steps:
 
 3. Run the command `python program.py` to execute the program.
 
-    - The program will make an API call to retrieve conference data from the specified API endpoint.
+    - The program will open a GUI window that displays a label and a "Fetch Data" button.
 
-    - It will then process the data, create a schedule based on the available dates of the conference partners, and store the schedule in memory.
+    - Click the "Fetch Data" button to make an API call and fetch conference data from the specified API endpoint.
 
-    - Finally, the program will attempt to post the schedule back to the API endpoint. If the response status code is 200, it indicates successful completion of the assignment.
+    - The program will process the data, create a schedule based on the available dates of the conference partners, and store the schedule in memory.
 
-4. To run the unit tests, execute the command `python unittests.py` in the terminal or command prompt.
+    - If the fetching and schedule creation process is successful, a success message will be displayed in the GUI window.
+
+4. To stop the program at any time, click the "Stop" button in the GUI window.
+
+5. To run the unit tests, execute the command `python unittests.py` in the terminal or command prompt.
 
     - The unit tests will validate the functionality of the methods and classes in `program.py`. Each test case will verify a specific aspect of the program's behavior, such as successful API calls, error handling, and correct schedule creation and posting.
 
@@ -49,3 +58,6 @@ By successfully completing the assessment and receiving a status code of 200 upo
 
 ## Authors
 Syed Hussain Ather
+```
+
+Please make sure to update the author name and any additional information as needed.
