@@ -89,5 +89,35 @@ class ConferenceSchedulerTestCase(unittest.TestCase):
         self.assertEqual(conferences[0].name, "Country1")
         self.assertEqual(conferences[0].startDate, datetime(2023, 6, 10))
         self.assertEqual(conferences[0].attendeeCount, 1)
-        self.assertEqual(conferences[0].attendees,
+        self.assertEqual(conferences[0].attendees, "partner1@example.com")
+        self.assertEqual(conferences[1].name, "Country2")
+        self.assertEqual(conferences[1].startDate, datetime(2023, 6, 10))
+        self.assertEqual(conferences[1].attendeeCount, 1)
+        self.assertEqual(conferences[1].attendees, "partner2@example.com")
+
+    def test_post_schedule_success(self):
+        # Prepare data for the post_schedule method
+        conference1 = Conference("Country1", datetime(2023, 6, 10), 1, "partner1@example.com")
+        conference2 = Conference("Country2", datetime(2023, 6, 10), 1, "partner2@example.com")
+        self.scheduler.conferences = [conference1, conference2]
+
+        # Mock the response for a successful schedule post
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        requests = MagicMock()
+        requests.post.return_value = mock_response
+
+        # Assign the mocked requests module to the scheduler
+        self.scheduler.requests = requests
+
+        # Call the post_schedule method
+        self.scheduler.post_schedule()
+
+        # Assert that the schedule is posted successfully
+        self.assertEqual(requests.post.call_count, 1)
+        self.assertEqual(requests.post.call_args[1]["json"], '{"Conferences": [{"name": "Country1", "startDate": "2023-06-10T00:00:00", "attendeeCount": 1, "attendees": ["partner1@example.com"]}, {"name": "Country2", "startDate": "2023-06-10T00:00:00", "attendeeCount": 1, "attendees": ["partner2@example.com"]}]}')
+
+
+if __name__ == "__main__":
+    unittest.main()
 
