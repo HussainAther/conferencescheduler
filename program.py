@@ -44,7 +44,7 @@ class ConferenceSchedulerGUI:
     def stop_program(self):
         if self.is_fetching:
             self.label.configure(text="Stopping the program...")
-            sys.exit(0)  # Exit the program
+            sys.exit()  # Exit the program
 
     def run(self):
         self.root.mainloop()
