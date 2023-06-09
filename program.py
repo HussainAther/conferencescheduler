@@ -1,11 +1,53 @@
 from datetime import datetime
+from tkinter import Tk, Label, Button
+
 import json
 import requests
 import requests_cache
+import sys
 
 API_ENDPOINT = "https://backendassessmentv1.onrender.com/conference"
 
 requests_cache.install_cache(cache_name='conference_cache', backend='sqlite', expire_after=180)
+
+class ConferenceSchedulerGUI:
+    def __init__(self):
+        self.root = Tk()
+        self.root.title("Conference Scheduler")
+        
+        self.label = Label(self.root, text="Click the button to fetch conference data and create a schedule.")
+        self.label.pack()
+
+        self.fetch_button = Button(self.root, text="Fetch Data", command=self.fetch_and_create_schedule)
+        self.fetch_button.pack()
+
+        self.stop_button = Button(self.root, text="Stop", command=self.stop_program)
+        self.stop_button.pack()
+
+        self.is_fetching = False
+
+    def fetch_and_create_schedule(self):
+        self.label.configure(text="Fetching data...")  # Update the label text
+        self.fetch_button.configure(state="disabled")  # Disable the fetch button
+        self.stop_button.configure(state="normal")  # Enable the stop button
+        self.is_fetching = True
+
+        # Call the conference_api_call method to fetch data and create the schedule
+        scheduler = ConferenceScheduler()
+        scheduler.conference_api_call()
+
+        self.label.configure(text="Schedule created successfully.")  # Update the label text
+        self.fetch_button.configure(state="normal")  # Enable the fetch button
+        self.stop_button.configure(state="disabled")  # Disable the stop button
+        self.is_fetching = False
+
+    def stop_program(self):
+        if self.is_fetching:
+            self.label.configure(text="Stopping the program...")
+            sys.exit(0)  # Exit the program
+
+    def run(self):
+        self.root.mainloop()
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -73,7 +115,7 @@ class ConferenceScheduler:
 
             json_data = json.dumps(schedule, cls=DateTimeEncoder)
 
-            response = requests.post(API_ENDPOINT, json=json_data)
+            response = requests.get(API_ENDPOINT, json=json_data)
             response.raise_for_status()  # Raise exception for non-200 status codes
 
             if response.status_code == 200:
@@ -96,3 +138,9 @@ scheduler = ConferenceScheduler()
 
 # Call the conference_api_call method to fetch data and create the schedule
 scheduler.conference_api_call()
+
+# Create an instance of the ConferenceSchedulerGUI class
+gui = ConferenceSchedulerGUI()
+
+# Run the GUI
+gui.run()
