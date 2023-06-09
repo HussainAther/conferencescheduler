@@ -1,6 +1,5 @@
 Great! Here's the updated README.md file with the GUI improvements:
 
-```markdown
 # (Optional) API Mock Technical Assessment
 ## Conference Scheduler
 
@@ -58,6 +57,3 @@ By successfully completing the assessment and receiving a status code of 200 upo
 
 ## Authors
 Syed Hussain Ather
-```
-
-Please make sure to update the author name and any additional information as needed.
