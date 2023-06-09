@@ -1,13 +1,51 @@
-# (Optional) API Mock Technical Assessment 
+# (Optional) API Mock Technical Assessment
 ## Conference Scheduler
 
-The goal of this assessment is to create a program using OOP that makes an API request to the linked server endpoint, organizes the data, and then makes a POST request to the same endpoint. If you are getting a status code back of 200 when you post then you have successfully completed the assignment!
+The goal of this assessment is to create a program that interacts with an API endpoint to retrieve conference data, organize the data, and post a schedule back to the same endpoint. The program is implemented using object-oriented programming (OOP) principles.
 
-Make sure to install requests-cache with:
+## Prerequisites
 
-```
+Before running the program, make sure to install `requests-cache` by executing the following command:
+
+```bash
 pip install requests-cache
 ```
 
-## Author
+## Files
+
+The assessment consists of the following files:
+
+1. `program.py`: This file contains the implementation of the ConferenceScheduler class and its dependencies. It includes methods for making API calls, creating schedules, and posting schedules back to the API endpoint. The file also includes a Conference class to represent individual conferences. Error handling is implemented for handling exceptions during API calls and schedule creation.
+
+2. `unittests.py`: This file contains unit tests for verifying the functionality of the methods and classes in `program.py`. The unit tests cover different scenarios, such as successful API calls, handling API errors, and verifying the correctness of schedule creation and posting.
+
+## Usage
+
+To use the program, follow these steps:
+
+1. Install the required `requests-cache` library by running the command mentioned above.
+
+2. Open a terminal or command prompt and navigate to the directory containing the program files.
+
+3. Run the command `python program.py` to execute the program.
+
+    - The program will make an API call to retrieve conference data from the specified API endpoint.
+
+    - It will then process the data, create a schedule based on the available dates of the conference partners, and store the schedule in memory.
+
+    - Finally, the program will attempt to post the schedule back to the API endpoint. If the response status code is 200, it indicates successful completion of the assignment.
+
+4. To run the unit tests, execute the command `python unittests.py` in the terminal or command prompt.
+
+    - The unit tests will validate the functionality of the methods and classes in `program.py`. Each test case will verify a specific aspect of the program's behavior, such as successful API calls, error handling, and correct schedule creation and posting.
+
+    - The unit tests will provide feedback on whether the program functions as expected and help identify any issues or errors.
+
+## Conclusion
+
+The Conference Scheduler program demonstrates the use of object-oriented programming to interact with an API, organize data, and perform actions such as creating and posting schedules. The unit tests provide confidence in the correctness of the program's functionality and help ensure its robustness.
+
+By successfully completing the assessment and receiving a status code of 200 upon posting the schedule, you have achieved the desired outcome of the assignment.
+
+## Authors
 Syed Hussain Ather
