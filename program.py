@@ -27,6 +27,9 @@ class ConferenceSchedulerGUI:
         self.is_fetching = False
 
     def fetch_and_create_schedule(self):
+        """
+        Fetch and create a schedule. 
+        """
         self.label.configure(text="Fetching data...")  # Update the label text
         self.fetch_button.configure(state="disabled")  # Disable the fetch button
         self.stop_button.configure(state="normal")  # Enable the stop button
@@ -38,13 +41,14 @@ class ConferenceSchedulerGUI:
 
         self.label.configure(text="Schedule created successfully.")  # Update the label text
         self.fetch_button.configure(state="normal")  # Enable the fetch button
-        self.stop_button.configure(state="disabled")  # Disable the stop button
         self.is_fetching = False
 
     def stop_program(self):
-        if self.is_fetching:
-            self.label.configure(text="Stopping the program...")
-            sys.exit()  # Exit the program
+        """
+        Stop button stops the program.
+        """
+        self.label.configure(text="Stopping the program...")
+        sys.exit()  # Exit the program
 
     def run(self):
         self.root.mainloop()
@@ -132,12 +136,6 @@ class Conference:
         self.startDate = start_date
         self.attendeeCount = attendee_count
         self.attendees = attendees
-
-# Create an instance of the ConferenceScheduler class
-scheduler = ConferenceScheduler()
-
-# Call the conference_api_call method to fetch data and create the schedule
-scheduler.conference_api_call()
 
 # Create an instance of the ConferenceSchedulerGUI class
 gui = ConferenceSchedulerGUI()
