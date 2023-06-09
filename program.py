@@ -21,13 +21,22 @@ class ConferenceScheduler:
         self.api_url = 'https://backendassessmentv1.onrender.com/conference'
         self.solution_url = 'https://backendassessmentv1.onrender.com/solution'
 
-    def conference_api_call(self):
+    def make_api_call(self):
         """
         Retrieve conference data from the API point.
         """
         response = requests.get(self.api_url)
-        data = response.json()
-        return data
+        if response.status_code == 200:
+            partnercheck = request.json()['partners']
+            print("Request was successful")
+        else:
+            print("Request failed with status code: ", response.status_code)
+        for partner in partnercheck:
+            self.country_dict[partner['country']] = self.country_dict.get(partner['country'], dict()) 
+            for i in range(len(partner['availableDates'])-1):
+                """
+                Put code here to check available dates.
+                """
 
     def create_schedule(self, data):
         """
@@ -60,7 +69,7 @@ class ConferenceScheduler:
         conferences.sort(key=lambda x: x.attendeeCount, reverse=True)
         return conferences
 
-    def post_schedule(self, conferences):
+    def submit_schedule(self, conferences):
         """
         Post the schedule with the given conferences. 
         """
@@ -84,6 +93,6 @@ class ConferenceScheduler:
 
 # Example usage
 scheduler = ConferenceScheduler()
-data = scheduler.conference_api_call()
+data = scheduler.make_api_call()
 schedule = scheduler.create_schedule(data)
-scheduler.post_schedule(schedule)
+scheduler.submit_schedule(schedule)
